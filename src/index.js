@@ -1,5 +1,6 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
 import Notiflix from 'notiflix';
+import SlimSelect from 'slim-select';
 
 document.addEventListener('DOMContentLoaded', () => {
   const breedSelect = document.querySelector('.breed-select');
@@ -61,11 +62,16 @@ document.addEventListener('DOMContentLoaded', () => {
         catImage.alt = `Image of ${catData.breeds[0].name}`;
         catImage.style.maxHeight = '300px';
         catImage.style.marginRight = '20px';
+        catImage.style.marginTop = '30px';
         catContainer.appendChild(catImage);
 
-        // Crearea și adăugarea textului
+        // Crearea si adăugarea textului
         const catText = document.createElement('div');
-        catText.innerHTML = `<h2>${catData.breeds[0].name}</h2><p>${catData.breeds[0].description}</p>`;
+        catText.innerHTML = `
+        <h2>${catData.breeds[0].name}</h2>
+        <p>${catData.breeds[0].description}</p>
+        <p><strong>Temperament:</strong> ${catData.breeds[0].temperament}</p>
+        <h4><a target="_blank" href="${catData.breeds[0].wikipedia_url}">Wikipedia</a></h4>`;
         catContainer.appendChild(catText);
 
         // Curățarea conținutului anterior și adăugarea noului layout
