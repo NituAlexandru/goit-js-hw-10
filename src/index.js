@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const loader = document.querySelector('.loader');
   const errorParagraph = document.querySelector('.error');
 
-  // ascunde select si info pisica
+  // ascunde select, info pisica si paragraful pt eroare
   breedSelect.style.display = 'none';
   catInfoDiv.style.display = 'none';
   errorParagraph.style.display = 'none';
@@ -16,19 +16,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // afiseaza loader ul la incarcarea paginii
   loader.style.display = 'block';
 
+
+  // apeleaza functia
   fetchBreeds()
     .then(breeds => {
       loader.style.display = 'none';
       breedSelect.style.display = 'block';
 
       breeds.forEach(breed => {
-        const option = document.createElement('option');
-        option.value = breed.id;
-        option.textContent = breed.name;
-        breedSelect.appendChild(option);
+        //itereaza prin fiecare element (rasa)
+        const option = document.createElement('option'); //creaza elem nou
+        option.value = breed.id; // seteaza val
+        option.textContent = breed.name; // seteaza val
+        breedSelect.appendChild(option); //adauga opt. la elem selectat
       });
     })
     .catch(error => {
+      //Prinde orice eroare care apare in timpul solicitarii HTTP.
       Notiflix.Notify.failure(
         'Oops! Something went wrong! Try reloading the page!'
       );
@@ -36,8 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   breedSelect.addEventListener('change', event => {
-    const breedId = event.target.value;
+    const breedId = event.target.value; // obtine val optiunii selectate
 
+    // verifica daca a fost selectata o rasa, altfel afiseaza mesaj eroare
+    // si opreste executia
     if (!breedId) {
       errorParagraph.textContent = 'Please select a breed.';
       return;
@@ -47,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     catInfoDiv.style.display = 'none';
     errorParagraph.style.display = 'none';
 
+    //Apelează funcția fetchCatByBreed cu ID-ul rasei selectate și procesează răspunsul.
     fetchCatByBreed(breedId)
       .then(catData => {
         loader.style.display = 'none';
@@ -81,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         catInfoDiv.style.display = 'block';
       })
       .catch(error => {
+        //Prinde orice eroare care apare în timpul solicitării HTTP.
         errorParagraph.textContent = 'Failed to load cat data.';
         loader.style.display = 'none';
       });
