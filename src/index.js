@@ -15,6 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // afiseaza loader ul la incarcarea paginii
   loader.style.display = 'block';
+  loader.innerHTML =
+    '<div class="loader-container">' +
+    '<span class="loader-two"></span>' +
+    'Loading data, please wait...</div>';
+  loader.style.display = 'block';
+  loader.style.position = 'absolute';
+  loader.style.left = '50px';
+  loader.style.top = '70px';
 
   // apeleaza functia
   fetchBreeds()
@@ -31,9 +39,18 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       // Inițializează SlimSelect aici
-      new SlimSelect({
+      let slimSelect = new SlimSelect({
         select: '.breed-select',
       });
+
+      // Selectează containerul principal al SlimSelect
+      // ss-main - este clasa standard a containerului creat de SlimSelect
+      let slimSelectContainer = document.querySelector('.ss-main');
+
+      // Setează lățimea la 30%
+      if (slimSelectContainer) {
+        slimSelectContainer.style.width = '20%';
+      }
     })
     .catch(error => {
       //Prinde orice eroare care apare in timpul solicitarii HTTP.
