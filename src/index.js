@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // afiseaza loader ul la incarcarea paginii
   loader.style.display = 'block';
 
-
   // apeleaza functia
   fetchBreeds()
     .then(breeds => {
@@ -29,6 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
         option.value = breed.id; // seteaza val
         option.textContent = breed.name; // seteaza val
         breedSelect.appendChild(option); //adauga opt. la elem selectat
+      });
+
+      // Inițializează SlimSelect aici
+      new SlimSelect({
+        select: '.breed-select',
       });
     })
     .catch(error => {
