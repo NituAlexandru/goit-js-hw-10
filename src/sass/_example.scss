@@ -30,6 +30,10 @@ body {
   background-size: cover;
   background-position: center;
 }
+.ss-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
 
 
 .loader-container {
